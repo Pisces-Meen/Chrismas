@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Festive Tree Portfolio — คริสต์มาสพอร์ตโฟลิโอ & ต้นสน 360°</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Kanit', 'Prompt', 'sans-serif'],
+          },
+          colors: {
+            festive: {
+              red: '#C81E2B',
+              redDark: '#99121D',
+              green: '#14532D',
+              greenBright: '#16A34A',
+              cream: '#FFFDF9',
+              gold: '#FBBF24'
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Kanit', 'Prompt', sans-serif;
+      background: linear-gradient(160deg, #fffdf9 0%, #fef2f2 48%, #f0fdf4 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* เกร็ดหิมะตก */
+    #snow-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 40;
+      overflow: hidden;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -24px;
+      color: #ffffff;
+      text-shadow: 0 0 6px rgba(20, 83, 45, 0.25), 0 0 10px rgba(200, 30, 43, 0.18);
+      user-select: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-24px) translateX(0) rotate(0deg);
+      }
+      50% {
+        transform: translateY(50vh) translateX(18px) rotate(180deg);
+      }
+      100% {
+        transform: translateY(105vh) translateX(-14px) rotate(360deg);
+      }
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(20, 83, 45, 0.14);
+      box-shadow: 0 14px 36px -12px rgba(20, 83, 45, 0.14), 0 4px 14px -4px rgba(200, 30, 43, 0.08);
+    }
+
+    .checker-bg {
+      background-image:
+        linear-gradient(45deg, #f1f5f9 25%, transparent 25%),
+        linear-gradient(-45deg, #f1f5f9 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f1f5f9 75%),
+        linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
+      background-size: 18px 18px;
+      background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased selection:bg-festive-red selection:text-white">
+
+  <!-- เลเยอร์เกร็ดหิมะ -->
+  <div id="snow-layer" aria-hidden="true"></div>
+
+  <!-- แถบด้านบน (Header & Stepper) -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b-2 border-festive-red/20 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-10 h-10 rounded-2xl bg-festive-red text-white flex items-center justify-center text-xl shadow">🎄</span>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight text-festive-green">
+            Christmas Tree Portfolio <span class="text-festive-red">Showcase</span>
+          </h1>
+          <p class="text-xs text-slate-500">พื้นที่สะสมผลงาน & ตกแต่งต้นสนคริสต์มาส 360°</p>
+        </div>
+      </div>
+
+      <!-- ปุ่มบอกลำดับ 5 หน้า -->
+      <nav id="step-nav" class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1">
+        <button data-step="1" class="step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition">1. ที่ตั้ง</button>
+        <button data-step="2" class="step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition">2. ขนาดห้อง</button>
+        <button data-step="3" class="step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition">3. สร้างไอเทม</button>
+        <button data-step="4" class="step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition">4. ติดบนต้นสน</button>
+        <button data-step="5" class="step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition">5. ภาพรวม & แชร์</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- กล่องแจ้งเตือน -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-festive-green text-white px-4 py-3 rounded-2xl shadow-xl border border-white/30 text-sm font-medium"></div>
+
+  <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 relative z-10">
+
+    <!-- ========================================================= -->
+    <!-- หน้า 1: เลือก จังหวัด และ ประเทศ                             -->
+    <!-- ========================================================= -->
+    <section id="page-1" class="page-section space-y-6">
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-festive-red/10 text-festive-red text-xs font-semibold mb-3">
+          <span>❄️ หน้าแรก • เริ่มต้นการเดินทางคริสต์มาส</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-festive-green">เลือกประเทศและจังหวัดของคุณ</h2>
+        <p class="text-slate-600 mt-1">ข้อมูลนี้จะใช้อ้างอิงสำหรับห้องระดับจังหวัด และบันทึกเป็นส่วนหนึ่งของพอร์ตโฟลิโอต้นคริสต์มาส</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div>
+            <label for="country-select" class="block text-sm font-semibold text-festive-green mb-2">ประเทศ (Country)</label>
+            <select id="country-select" class="w-full rounded-2xl border-2 border-festive-green/25 bg-white px-4 py-3 text-base font-medium focus:border-festive-red focus:outline-none">
+              <option value="Thailand" selected>🇹🇭 ประเทศไทย (Thailand)</option>
+              <option value="Japan">🇯🇵 ญี่ปุ่น (Japan)</option>
+              <option value="South Korea">🇰🇷 เกาหลีใต้ (South Korea)</option>
+              <option value="United States">🇺🇸 สหรัฐอเมริกา (United States)</option>
+              <option value="United Kingdom">🇬🇧 สหราชอาณาจักร (United Kingdom)</option>
+              <option value="Germany">🇩🇪 เยอรมนี (Germany)</option>
+              <option value="France">🇫🇷 ฝรั่งเศส (France)</option>
+              <option value="Singapore">🇸🇬 สิงคโปร์ (Singapore)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="province-select" class="block text-sm font-semibold text-festive-green mb-2">จังหวัด / เมือง (Province / Region)</label>
+            <select id="province-select" class="w-full rounded-2xl border-2 border-festive-green/25 bg-white px-4 py-3 text-base font-medium focus:border-festive-red focus:outline-none"></select>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4 rounded-2xl bg-festive-cream border border-festive-gold/60 flex flex-wrap items-center justify-between gap-4">
+          <div class="text-sm">
+            <span class="text-slate-500">ตำแหน่งที่เลือกปัจจุบัน:</span>
+            <strong id="location-summary" class="text-festive-red ml-1">นครปฐม, ประเทศไทย</strong>
+          </div>
+          <button id="to-step-2" class="px-6 py-3 rounded-2xl bg-festive-red hover:bg-festive-redDark text-white font-semibold shadow-md transition flex items-center gap-2">
+            <span>ถัดไป: เลือกขนาดห้อง</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- หน้า 2: เลือกขนาดห้อง                                      -->
+    <!-- ========================================================= -->
+    <section id="page-2" class="page-section hidden space-y-6">
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-festive-green/10 text-festive-green text-xs font-semibold">
+            🎄 หน้าสอง • เลือกขนาดห้อง & โควตาไอเทม
+          </span>
+          <span class="text-xs font-medium text-slate-500">
+            พื้นที่ที่เลือก: <strong id="step2-location-badge" class="text-festive-red"></strong>
+          </span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-bold text-festive-green">เลือกขนาดห้องสำหรับต้นสนของคุณ</h2>
+        <p class="text-slate-600 mt-1">แต่ละขนาดห้องมีโควตาการสร้างไอเทมต่อแอคเค้าท์ และกติกาพิเศษแตกต่างกัน</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+          <!-- 1. ห้องส่วนตัว -->
+          <div id="room-card-private" class="room-card rounded-3xl border-2 border-slate-200 bg-white p-6 flex flex-col justify-between transition hover:border-festive-red">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">🔐</span>
+                <span class="px-3 py-1 rounded-full bg-festive-red/10 text-festive-red text-xs font-bold">5 ชิ้น / แอคเค้าท์</span>
+              </div>
+              <h3 class="text-xl font-bold text-festive-green mt-3">1. ห้องส่วนตัว</h3>
+              <p class="text-sm text-slate-600 mt-2">AI สุ่มโค้ดห้องเฉพาะตัว 5 ตัวอักษร (ตัวพิมพ์ใหญ่ A–Z และตัวเลข 0–9 เท่านั้น ไม่ซ้ำกัน)</p>
+
+              <div class="mt-4 p-3 rounded-2xl bg-slate-50 border border-slate-200">
+                <div class="text-xs text-slate-500">โค้ดห้องส่วนตัว (AI Generated)</div>
+                <div class="flex items-center justify-between mt-1">
+                  <span id="private-room-code" class="text-xl font-mono font-bold tracking-widest text-festive-red">-----</span>
+                  <button id="regen-code-btn" type="button" class="text-xs px-2.5 py-1 rounded-lg bg-festive-green text-white font-semibold hover:bg-festive-greenBright transition">
+                    สุ่มโค้ดใหม่
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button data-select-room="private" class="select-room-btn mt-6 w-full py-3 rounded-2xl bg-festive-red hover:bg-festive-redDark text-white font-semibold transition">
+              เลือกห้องส่วนตัว
+            </button>
+          </div>
+
+          <!-- 2. ห้องระดับจังหวัด -->
+          <div id="room-card-province" class="room-card rounded-3xl border-2 border-slate-200 bg-white p-6 flex flex-col justify-between transition hover:border-festive-green">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">🏙️</span>
+                <span class="px-3 py-1 rounded-full bg-festive-green/10 text-festive-green text-xs font-bold">2 ชิ้น / แอคเค้าท์</span>
+              </div>
+              <h3 class="text-xl font-bold text-festive-green mt-3">2. ห้องระดับจังหวัด</h3>
+              <p class="text-sm text-slate-600 mt-2">อ้างอิงจากจังหวัดและประเทศที่เลือกในหน้าแรก ร่วมตกแต่งต้นสนประจำพื้นที่</p>
+
+              <div class="mt-4 p-3 rounded-2xl bg-emerald-50/70 border border-emerald-200">
+                <div class="text-xs text-emerald-700">ห้องอ้างอิงพื้นที่</div>
+                <div id="province-room-label" class="text-sm font-bold text-festive-green mt-1">-</div>
+              </div>
+            </div>
+            <button data-select-room="province" class="select-room-btn mt-6 w-full py-3 rounded-2xl bg-festive-green hover:bg-festive-greenBright text-white font-semibold transition">
+              เลือกห้องระดับจังหวัด
+            </button>
+          </div>
+
+          <!-- 3. ระดับประเทศ -->
+          <div id="room-card-national" class="room-card rounded-3xl border-2 border-slate-200 bg-white p-6 flex flex-col justify-between transition hover:border-amber-500">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="text-2xl">🌏</span>
+                <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">1 ชิ้น / แอคเค้าท์</span>
+              </div>
+              <h3 class="text-xl font-bold text-festive-green mt-3">3. ระดับประเทศ</h3>
+              <p class="text-sm text-slate-600 mt-2">เซิร์ฟเวอร์ขนาดใหญ่ ต้นสนจะใหญ่ขึ้น <strong>1 เท่า</strong> ทุกๆ <strong>10 แอคเค้าท์</strong> ที่เข้าใช้งาน</p>
+
+              <div class="mt-4 p-3 rounded-2xl bg-amber-50 border border-amber-200 space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-amber-900 font-medium">แอคเค้าท์เข้าใช้งาน:</span>
+                  <strong id="national-accounts-count" class="text-festive-red text-sm">10 แอคเค้าท์</strong>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-amber-900 font-medium">ขนาดต้นสนปัจจุบัน:</span>
+                  <strong id="national-scale-badge" class="text-festive-green text-sm">1.0x (พื้นฐาน)</strong>
+                </div>
+                <div class="flex gap-1.5 pt-1">
+                  <button id="add-10-acc-btn" type="button" class="flex-1 text-xs py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold transition">
+                    +10 แอคเค้าท์ (โต +1 เท่า)
+                  </button>
+                  <button id="reset-acc-btn" type="button" class="text-xs px-2.5 py-1.5 rounded-lg bg-white border border-amber-300 text-amber-900 font-semibold hover:bg-amber-100 transition">
+                    รีเซ็ต
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button data-select-room="national" class="select-room-btn mt-6 w-full py-3 rounded-2xl bg-festive-red hover:bg-festive-redDark text-white font-semibold transition">
+              เลือกระดับประเทศ
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-200">
+          <button id="back-to-1" class="px-5 py-2.5 rounded-2xl border-2 border-festive-green text-festive-green font-semibold hover:bg-festive-green hover:text-white transition">
+            ← ย้อนกลับหน้าแรก
+          </button>
+          <div class="text-sm text-slate-600">
+            ห้องที่เลือก: <strong id="active-room-summary" class="text-festive-red">ยังไม่ได้เลือก</strong>
+          </div>
+          <button id="to-step-3" class="px-6 py-3 rounded-2xl bg-festive-green hover:bg-festive-greenBright text-white font-semibold shadow-md transition">
+            ถัดไป: สร้างไอเทม →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- หน้า 3: สร้างไอเทม (กระดาษ / ดวงไฟ)                        -->
+    <!-- ========================================================= -->
+    <section id="page-3" class="page-section hidden space-y-6">
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-festive-red/10 text-festive-red text-xs font-semibold">
+            ✂️ หน้าสาม • สตูดิโอสร้างไอเทม
+          </span>
+          <span class="text-xs sm:text-sm font-bold px-3.5 py-1 rounded-full bg-festive-green text-white">
+            สร้างแล้ว <span id="quota-used">0</span> / <span id="quota-max">5</span> ชิ้น (สำหรับห้องที่เลือก)
+          </span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-festive-green">สร้างไอเทมสำหรับติดบนต้นสน</h2>
+        <p class="text-slate-600 mt-1">เลือกได้ 2 ประเภท: <strong>กระดาษ</strong> (ระบายสี วาด/เขียน พิมพ์ข้อความ และตัดเป็นรูปร่างได้) หรือ <strong>ดวงไฟ</strong> (ทรงกลม หัวใจ 3D ดาว 3D เลือกสี วาด/เขียน และเรืองแสงเหมือนเปิดไฟ)</p>
+
+        <!-- แท็บเลือกประเภทไอเทม -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+          <button id="tab-paper" type="button" class="item-type-tab p-4 rounded-2xl border-2 border-festive-red bg-festive-red/5 text-left transition flex items-center gap-3">
+            <span class="text-3xl">📄</span>
+            <div>
+              <div class="font-bold text-festive-red text-lg">ตัวเลือกที่ 1: กระดาษ</div>
+              <div class="text-xs text-slate-600">เลือกสีจากจานสี • วาด/เขียน • พิมพ์ข้อความ • ตัดเป็นรูปร่าง</div>
+            </div>
+          </button>
+
+          <button id="tab-light" type="button" class="item-type-tab p-4 rounded-2xl border-2 border-slate-200 bg-white text-left transition flex items-center gap-3">
+            <span class="text-3xl">💡</span>
+            <div>
+              <div class="font-bold text-festive-green text-lg">ตัวเลือกที่ 2: ดวงไฟ</div>
+              <div class="text-xs text-slate-600">ทรงกลม • หัวใจ 3D • ดาว 3D • วาด/เขียนบนวัตถุ • เรืองแสงเหมือนเปิดไฟ</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- พื้นที่สร้างไอเทม -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          <!-- แผงเครื่องมือ (ซ้าย 7 คอลัมน์) -->
+          <div class="lg:col-span-7 space-y-4 bg-white rounded-3xl p-5 border border-slate-200">
+            <!-- จานสี + สีที่กำหนดเอง -->
+            <div>
+              <label class="block text-sm font-bold text-festive-green mb-2">เลือกสีจากจานสี (Color Palette)</label>
+              <div class="flex flex-wrap items-center gap-2">
+                <input id="item-color-picker" type="color" value="#E11D48" class="w-12 h-10 rounded-xl cursor-pointer border border-slate-300 bg-white p-0.5" title="เลือกสีอิสระ" />
+                <button type="button" data-swatch="#DC2626" class="swatch-btn w-7 h-7 rounded-full bg-red-600 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#16A34A" class="swatch-btn w-7 h-7 rounded-full bg-green-600 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#FACC15" class="swatch-btn w-7 h-7 rounded-full bg-yellow-400 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#38BDF8" class="swatch-btn w-7 h-7 rounded-full bg-sky-400 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#F472B6" class="swatch-btn w-7 h-7 rounded-full bg-pink-400 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#FFFFFF" class="swatch-btn w-7 h-7 rounded-full bg-white border border-slate-300 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#A855F7" class="swatch-btn w-7 h-7 rounded-full bg-purple-500 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+                <button type="button" data-swatch="#FB923C" class="swatch-btn w-7 h-7 rounded-full bg-orange-400 ring-2 ring-offset-1 ring-transparent hover:scale-110 transition"></button>
+              </div>
+            </div>
+
+            <!-- เฉพาะตัวเลือกที่ 1: กระดาษ (เลือกรูปร่างสำหรับตัดกระดาษ) -->
+            <div id="paper-controls" class="space-y-3 pt-2 border-t border-slate-100">
+              <label class="block text-sm font-bold text-festive-red">ตัดกระดาษเป็นรูปร่างที่ต้องการ</label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button type="button" data-cut-shape="star" class="cut-shape-btn px-3 py-2 rounded-xl border-2 border-festive-red bg-festive-red/10 text-xs font-bold text-festive-red">⭐ ดาว</button>
+                <button type="button" data-cut-shape="heart" class="cut-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700">❤️ หัวใจ</button>
+                <button type="button" data-cut-shape="circle" class="cut-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700">⚪ วงกลม</button>
+                <button type="button" data-cut-shape="tree" class="cut-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700">🎄 ต้นสน</button>
+              </div>
+            </div>
+
+            <!-- เฉพาะตัวเลือกที่ 2: ดวงไฟ (เลือกรูปทรง 3 มิติ & ความเรืองแสง) -->
+            <div id="light-controls" class="hidden space-y-3 pt-2 border-t border-slate-100">
+              <label class="block text-sm font-bold text-festive-green">เลือกรูปทรงดวงไฟ</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" data-light-shape="sphere" class="light-shape-btn px-3 py-2 rounded-xl border-2 border-festive-green bg-festive-green/10 text-xs font-bold text-festive-green">🔮 ทรงกลม</button>
+                <button type="button" data-light-shape="heart3d" class="light-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700">💖 หัวใจ 3D</button>
+                <button type="button" data-light-shape="star3d" class="light-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700">🌟 ดาว 3D</button>
+              </div>
+              <div class="flex items-center justify-between pt-1">
+                <span class="text-xs font-semibold text-slate-700">สถานะการเรืองแสง (เปิดไฟ)</span>
+                <label class="inline-flex items-center gap-2 cursor-pointer">
+                  <input id="light-glow-toggle" type="checkbox" checked class="w-4 h-4 accent-festive-green" />
+                  <span class="text-xs font-bold text-festive-green">เรืองแสงเปิดอยู่</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- พิมพ์ข้อความลงบนไอเทม -->
+            <div class="pt-2 border-t border-slate-100">
+              <label for="item-text-input" class="block text-sm font-bold text-slate-700 mb-1">พิมพ์ข้อความลงบนไอเทม (ไม่บังคับ)</label>
+              <div class="flex gap-2">
+                <input id="item-text-input" type="text" maxlength="16" placeholder="เช่น Merry Xmas! หรือ ชื่อผลงาน" class="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-sm focus:border-festive-green focus:outline-none" />
+                <button id="apply-text-btn" type="button" class="px-4 py-2 rounded-xl bg-festive-green text-white text-xs font-bold hover:bg-festive-greenBright transition">
+                  พิมพ์ลงชิ้นงาน
+                </button>
+              </div>
+            </div>
+
+            <!-- ปุ่มจัดการลายเส้น -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+              <div class="flex items-center gap-2">
+                <label class="text-xs font-semibold text-slate-600">ขนาดหัวแปรง:</label>
+                <input id="brush-size" type="range" min="2" max="14" value="4" class="w-24 accent-festive-red" />
+              </div>
+              <button id="clear-draw-btn" type="button" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
+                ล้างรอยวาด/ข้อความ
+              </button>
+            </div>
+          </div>
+
+          <!-- พื้นที่แสดงตัวอย่างชิ้นงานที่กำลังสร้าง (ขวา 5 คอลัมน์) -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-5 border border-slate-200 flex flex-col items-center justify-between">
+            <div class="w-full flex items-center justify-between mb-2">
+              <span class="text-sm font-bold text-festive-green">ตัวอย่างไอเทม (ลากเมาส์/นิ้วเพื่อวาดหรือเขียน)</span>
+            </div>
+
+            <div class="checker-bg rounded-2xl p-3 border border-slate-200 flex items-center justify-center w-full">
+              <canvas id="item-editor-canvas" width="280" height="280" class="rounded-xl cursor-crosshair touch-none max-w-full"></canvas>
+            </div>
+
+            <button id="save-item-btn" type="button" class="mt-4 w-full py-3 rounded-2xl bg-festive-red hover:bg-festive-redDark text-white font-bold shadow-md transition">
+              + บันทึกไอเทมนี้เข้ากระเป๋า
+            </button>
+          </div>
+        </div>
+
+        <!-- รายการไอเทมที่สร้างแล้วในห้องนี้ -->
+        <div class="mt-8 pt-6 border-t border-slate-200">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <h3 class="text-lg font-bold text-festive-green">ไอเทมที่สร้างแล้ว (<span id="created-items-count">0</span> ชิ้น)</h3>
+            <div class="flex gap-2">
+              <button id="back-to-2" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-100 transition">
+                ← ย้อนกลับเลือกห้อง
+              </button>
+              <button id="to-step-4" class="px-6 py-2.5 rounded-xl bg-festive-green hover:bg-festive-greenBright text-white text-sm font-bold shadow transition">
+                ถัดไป: นำไปติดบนต้นสน 360° →
+              </button>
+            </div>
+          </div>
+          <div id="created-items-list" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+            <p class="col-span-full text-sm text-slate-400 py-4 text-center">ยังไม่มีไอเทมที่สร้างในห้องนี้ ลองสร้างชิ้นแรกด้านบนได้เลย!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- หน้า 4: แสดงผลต้นสน 360 องศา + ติดไอเทม                      -->
+    <!-- ========================================================= -->
+    <section id="page-4" class="page-section hidden space-y-6">
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-festive-green/10 text-festive-green text-xs font-semibold">
+            🎄 หน้าสี่ • ต้นสน 360 องศา (โหมดตกแต่ง)
+          </span>
+          <span id="step4-room-info" class="text-xs font-bold text-festive-red"></span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-festive-green">ติดไอเทมของคุณบนต้นสนได้ทุกตำแหน่ง 360°</h2>
+        <p class="text-slate-600 mt-1">เริ่มต้นต้นสนมี <strong>ดาวประดับหัวสีทอง</strong>, <strong>เส้นไฟรอบต้น</strong> และ <strong>ของขวัญ 3 กล่องบนพื้น</strong> อยู่แล้ว เลือกไอเทมแล้วคลิกบนต้นสน หรือปรับองศา (0°–360°) และความสูงเพื่อติดได้อิสระ</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          <!-- แคนวาสต้นสน (ซ้าย 7 คอลัมน์) -->
+          <div class="lg:col-span-7 bg-gradient-to-b from-sky-950 via-emerald-950 to-slate-950 rounded-3xl p-4 flex flex-col items-center justify-between shadow-inner border border-white/20">
+            <canvas id="decorate-tree-canvas" width="480" height="520" class="rounded-2xl max-w-full cursor-pointer touch-none"></canvas>
+            <div class="w-full mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-white/80 px-1">
+              <span>✨ คลิกบนตัวต้นสนเพื่อติดไอเทมที่เลือก</span>
+              <span>ติดแล้วบนต้นสน: <strong id="placed-count-badge" class="text-festive-gold">0</strong> ชิ้น</span>
+            </div>
+          </div>
+
+          <!-- แผงควบคุมการติด 360° (ขวา 5 คอลัมน์) -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-5 border border-slate-200 space-y-4 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-bold text-festive-green mb-2">1. เลือกไอเทมที่จะนำไปติด</label>
+                <div id="attachable-items-grid" class="grid grid-cols-3 gap-2 max-h-44 overflow-y-auto p-1"></div>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100 space-y-3">
+                <div class="flex justify-between text-xs font-bold text-slate-700">
+                  <span>2. มุมรอบต้นสน 360 องศา</span>
+                  <span class="text-festive-red"><span id="attach-angle-val">0</span>°</span>
+                </div>
+                <input id="attach-angle-slider" type="range" min="0" max="360" value="45" class="w-full accent-festive-red" />
+
+                <div class="flex justify-between text-xs font-bold text-slate-700">
+                  <span>3. ความสูงบนต้นสน</span>
+                  <span class="text-festive-green"><span id="attach-height-val">50</span>%</span>
+                </div>
+                <input id="attach-height-slider" type="range" min="18" max="82" value="50" class="w-full accent-festive-green" />
+
+                <button id="place-item-btn" type="button" class="w-full py-2.5 rounded-2xl bg-festive-red hover:bg-festive-redDark text-white text-sm font-bold shadow transition">
+                  📌 ติดไอเทมตามมุมและความสูงนี้
+                </button>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <div class="text-xs font-bold text-slate-600 mb-1">ของตกแต่งเริ่มต้นบนต้นสน:</div>
+                <ul class="text-xs text-slate-600 space-y-1">
+                  <li>⭐ ดาวประดับสีทองบนยอดต้นสน</li>
+                  <li>💡 เส้นไฟคริสต์มาสระยิบระยับพันรอบต้น</li>
+                  <li>🎁 กล่องของขวัญ 3 กล่องวางบนพื้นโคนต้นสน</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between gap-2">
+              <button id="back-to-3" class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-100 transition">
+                ← ย้อนกลับสร้างไอเทม
+              </button>
+              <button id="to-step-5" class="px-5 py-2.5 rounded-xl bg-festive-green hover:bg-festive-greenBright text-white text-sm font-bold shadow transition">
+                ถัดไป: ภาพรวม & แชร์ →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- หน้า 5: มุมมองภาพรวม (ซูม/หมุน ห้ามแก้ไข + เพลง + แชร์/บันทึก) -->
+    <!-- ========================================================= -->
+    <section id="page-5" class="page-section hidden space-y-6">
+      <div class="glass-card rounded-3xl p-6 sm:p-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-festive-red text-white text-xs font-bold">
+            🔒 หน้าห้า • มุมมองภาพรวม (โหมดรับชมอย่างเดียว — แก้ไขไม่ได้)
+          </span>
+          <button id="music-toggle-btn" type="button" class="px-3.5 py-1.5 rounded-full bg-festive-green text-white text-xs font-bold shadow hover:bg-festive-greenBright transition flex items-center gap-1.5">
+            <span id="music-icon">🎵</span>
+            <span id="music-label">เพลงคริสต์มาสกำลังเล่น (กดปิด/เปิด)</span>
+          </button>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-bold text-festive-green">มุมมองภาพรวมต้นสน 360° & บันทึกภาพแชร์</h2>
+        <p class="text-slate-600 mt-1">ซูมเข้า–ซูมออก และหมุนมุมกล้องชมรอบต้นสนได้อิสระ (ไม่สามารถแก้ไขหรือย้ายชิ้นงานในหน้านี้ได้) พร้อมกดแชร์เพื่อบันทึกภาพหน้าจอทันที</p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          <!-- แคนวาสภาพรวม (ซ้าย 8 คอลัมน์) -->
+          <div class="lg:col-span-8 bg-gradient-to-b from-slate-950 via-emerald-950 to-festive-red/30 rounded-3xl p-4 flex flex-col items-center border border-white/20">
+            <canvas id="overview-tree-canvas" width="560" height="540" class="rounded-2xl max-w-full cursor-grab active:cursor-grabbing touch-none"></canvas>
+
+            <!-- แถบควบคุมกล้อง (ซูม & หมุน) -->
+            <div class="w-full mt-4 bg-white/95 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <button id="zoom-out-btn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm">➖ ซูมออก</button>
+                <span class="text-xs font-bold text-festive-green min-w-[68px] text-center">ซูม: <span id="zoom-val">100</span>%</span>
+                <button id="zoom-in-btn" type="button" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 font-bold text-sm">➕ ซูมเข้า</button>
+              </div>
+
+              <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+                <span class="text-xs font-bold text-festive-red whitespace-nowrap">หมุนมุมกล้อง:</span>
+                <input id="camera-rot-slider" type="range" min="0" max="360" value="0" class="w-full accent-festive-red" />
+                <span class="text-xs font-mono font-bold text-slate-700"><span id="camera-rot-val">0</span>°</span>
+              </div>
+
+              <button id="reset-camera-btn" type="button" class="px-3 py-1.5 rounded-xl border border-slate-300 text-xs font-bold hover:bg-slate-100">
+                รีเซ็ตมุมกล้อง
+              </button>
+            </div>
+          </div>
+
+          <!-- แผงบันทึกภาพและแชร์ (ขวา 4 คอลัมน์) -->
+          <div class="lg:col-span-4 bg-white rounded-3xl p-5 border border-slate-200 flex flex-col justify-between space-y-4">
+            <div class="space-y-4">
+              <h3 class="text-lg font-bold text-festive-green">📸 แชร์ & บันทึกภาพผลงาน</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                หมุนมุมกล้องและปรับระยะซูมในมุมที่ต้องการ จากนั้นกดปุ่มด้านล่างเพื่อบันทึกภาพบนหน้าเว็บ ณ ตอนนั้นเป็นไฟล์ <strong>PNG</strong> หรือแชร์ผลงาน
+              </p>
+
+              <button id="capture-share-btn" type="button" class="w-full py-3.5 rounded-2xl bg-festive-red hover:bg-festive-redDark text-white font-bold shadow-lg transition flex items-center justify-center gap-2">
+                <span>📤 กดแชร์ & บันทึกภาพ ณ ตอนนี้</span>
+              </button>
+
+              <div id="snapshot-preview-box" class="hidden space-y-2 pt-2">
+                <div class="text-xs font-bold text-festive-green">ภาพที่บันทึกได้ ณ ตอนนี้:</div>
+                <img id="snapshot-img" alt="ภาพต้นสนที่บันทึก" class="w-full rounded-2xl border-2 border-festive-gold shadow" />
+                <a id="download-snapshot-link" download="christmas-tree-portfolio.png" class="block w-full text-center py-2.5 rounded-xl bg-festive-green hover:bg-festive-greenBright text-white text-sm font-bold transition">
+                  💾 ดาวน์โหลดรูปภาพ (.PNG)
+                </a>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-200">
+              <button id="back-to-4-view" type="button" class="w-full py-2.5 rounded-xl border border-slate-300 text-slate-700 text-sm font-semibold hover:bg-slate-100 transition">
+                ← กลับไปหน้าแก้ไขต้นสน (หน้า 4)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. เกร็ดหิมะตกทั่วหน้าจอ (โทนขาว-แดง-เขียว)
+    // =========================================================================
+    (function initSnow() {
+      const snowLayer = document.getElementById('snow-layer');
+      const flakes = ['❄', '❅', '✦', '•'];
+      for (let i = 0; i < 36; i++) {
+        const el = document.createElement('div');
+        el.className = 'snowflake';
+        el.textContent = flakes[i % flakes.length];
+        el.style.left = `${Math.random() * 100}%`;
+        el.style.fontSize = `${10 + Math.random() * 14}px`;
+        el.style.opacity = `${0.45 + Math.random() * 0.55}`;
+        el.style.animationDuration = `${7 + Math.random() * 10}s`;
+        el.style.animationDelay = `${-Math.random() * 10}s`;
+        snowLayer.appendChild(el);
+      }
+    })();
+
+    // =========================================================================
+    // 2. สถานะหลักของแอปพลิเคชัน (State)
+    // =========================================================================
+    const provincesByCountry = {
+      'Thailand': ['นครปฐม', 'กรุงเทพมหานคร', 'เชียงใหม่', 'ภูเก็ต', 'ขอนแก่น', 'ชลบุรี', 'สงขลา'],
+      'Japan': ['โตเกียว', 'โอซาก้า', 'เกียวโต', 'ฮอกไกโด', 'ฟุกุโอกะ'],
+      'South Korea': ['โซล', 'ปูซาน', 'เชจู', 'อินชอน'],
+      'United States': ['นิวยอร์ก', 'แคลิฟอร์เนีย', 'วอชิงตัน', 'เท็กซัส'],
+      'United Kingdom': ['ลอนดอน', 'เอดินบะระ', 'แมนเชสเตอร์'],
+      'Germany': ['เบอร์ลิน', 'มิวนิก', 'ฮัมบูร์ก'],
+      'France': ['ปารีส', 'ลียง', 'นีซ'],
+      'Singapore': ['สิงคโปร์กลาง', 'จูร่ง', 'แทมปินส์']
+    };
+
+    const roomQuotaMap = {
+      private: 5,
+      province: 2,
+      national: 1
+    };
+
+    const state = {
+      step: 1,
+      country: 'Thailand',
+      province: 'นครปฐม',
+      roomType: 'private', // 'private' | 'province' | 'national'
+      privateRoomCode: '',
+      nationalAccounts: 10, // ทุกๆ 10 แอคเค้าท์ ต้นสนใหญ่ขึ้น 1 เท่า (10 -> 1.0x, 20 -> 2.0x ...)
+      itemType: 'paper', // 'paper' | 'light'
+      itemColor: '#E11D48',
+      paperShape: 'star', // 'star' | 'heart' | 'circle' | 'tree'
+      lightShape: 'sphere', // 'sphere' | 'heart3d' | 'star3d'
+      lightGlow: true,
+      brushSize: 4,
+      itemsByRoom: {
+        private: [],
+        province: [],
+        national: []
+      },
+      selectedItemId: null,
+      placedByRoom: {
+        private: [],
+        province: [],
+        national: []
+      },
+      attachAngle: 45,
+      attachHeight: 50,
+      overviewZoom: 1.0,
+      overviewYaw: 0
+    };
+
+    // สร้างโค้ดห้องส่วนตัว 5 ตัวอักษร (ตัวพิมพ์ใหญ่ A-Z และตัวเลข 0-9 เท่านั้น ไม่ซ้ำกัน)
+    const usedRoomCodes = new Set();
+    function generateUniqueRoomCode() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let code = '';
+      let guard = 0;
+      do {
+        code = '';
+        for (let i = 0; i < 5; i++) {
+          code += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        guard++;
+      } while (usedRoomCodes.has(code) && guard < 200);
+      usedRoomCodes.add(code);
+      return code;
+    }
+
+    state.privateRoomCode = generateUniqueRoomCode();
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('hidden');
+      clearTimeout(showToast._timer);
+      showToast._timer = setTimeout(() => t.classList.add('hidden'), 2800);
+    }
+
+    function getNationalScaleMultiplier() {
+      // ทุกๆ 10 แอคเค้าท์เข้าใช้งาน ใหญ่ขึ้น 1 เท่า (เช่น 10 -> 1x, 20 -> 2x, 30 -> 3x)
+      return Math.max(1, Math.floor(state.nationalAccounts / 10));
+    }
+
+    // =========================================================================
+    // 3. การนำทางระหว่าง 5 หน้า
+    // =========================================================================
+    function goToStep(stepNum) {
+      state.step = stepNum;
+      document.querySelectorAll('.page-section').forEach((sec, idx) => {
+        sec.classList.toggle('hidden', idx + 1 !== stepNum);
+      });
+      document.querySelectorAll('.step-btn').forEach((btn) => {
+        const s = Number(btn.dataset.step);
+        if (s === stepNum) {
+          btn.className = 'step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-festive-red text-white shadow transition';
+        } else {
+          btn.className = 'step-btn px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-festive-green/15 transition';
+        }
+      });
+
+      if (stepNum === 2) syncStep2UI();
+      if (stepNum === 3) {
+        syncStep3QuotaUI();
+        renderEditorCanvas();
+        renderCreatedItemsList();
+      }
+      if (stepNum === 4) {
+        syncStep4UI();
+        drawTreeScene('decorate-tree-canvas', {
+          placedItems: state.placedByRoom[state.roomType],
+          yawDeg: 0,
+          zoom: 1,
+          scaleMult: state.roomType === 'national' ? getNationalScaleMultiplier() : 1,
+          previewMarker: { angle: state.attachAngle, heightPct: state.attachHeight }
+        });
+      }
+      if (stepNum === 5) {
+        startChristmasMusic();
+        drawTreeScene('overview-tree-canvas', {
+          placedItems: state.placedByRoom[state.roomType],
+          yawDeg: state.overviewYaw,
+          zoom: state.overviewZoom,
+          scaleMult: state.roomType === 'national' ? getNationalScaleMultiplier() : 1,
+          previewMarker: null
+        });
+      } else {
+        stopChristmasMusic();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.step-btn').forEach((btn) => {
+      btn.addEventListener('click', () => goToStep(Number(btn.dataset.step)));
+    });
+
+    // =========================================================================
+    // 4. หน้า 1: เลือกจังหวัด และ ประเทศ
+    // =========================================================================
+    const countrySelect = document.getElementById('country-select');
+    const provinceSelect = document.getElementById('province-select');
+    const locationSummary = document.getElementById('location-summary');
+
+    function populateProvinces() {
+      const list = provincesByCountry[state.country] || ['เมืองหลัก'];
+      provinceSelect.innerHTML = list.map((p) => `<option value="${p}">${p}</option>`).join('');
+      state.province = list[0];
+      provinceSelect.value = state.province;
+      updateLocationSummary();
+    }
+
+    function updateLocationSummary() {
+      locationSummary.textContent = `${state.province}, ${state.country}`;
+    }
+
+    countrySelect.addEventListener('change', (e) => {
+      state.country = e.target.value;
+      populateProvinces();
+    });
+
+    provinceSelect.addEventListener('change', (e) => {
+      state.province = e.target.value;
+      updateLocationSummary();
+    });
+
+    document.getElementById('to-step-2').addEventListener('click', () => goToStep(2));
+    populateProvinces();
+
+    // =========================================================================
+    // 5. หน้า 2: เลือกขนาดห้อง
+    // =========================================================================
+    function syncStep2UI() {
+      document.getElementById('step2-location-badge').textContent = `${state.province}, ${state.country}`;
+      document.getElementById('private-room-code').textContent = state.privateRoomCode;
+      document.getElementById('province-room-label').textContent = `ห้องจังหวัด${state.province} (${state.country})`;
+
+      const mult = getNationalScaleMultiplier();
+      document.getElementById('national-accounts-count').textContent = `${state.nationalAccounts} แอคเค้าท์`;
+      document.getElementById('national-scale-badge').textContent = `${mult.toFixed(1)}x (ใหญ่ขึ้น ${mult} เท่า)`;
+
+      const roomNames = {
+        private: `1. ห้องส่วนตัว (โค้ด ${state.privateRoomCode}) — 5 ชิ้น/แอคเค้าท์`,
+        province: `2. ห้องระดับจังหวัด (${state.province}, ${state.country}) — 2 ชิ้น/แอคเค้าท์`,
+        national: `3. ระดับประเทศ (${mult}x) — 1 ชิ้น/แอคเค้าท์`
+      };
+      document.getElementById('active-room-summary').textContent = roomNames[state.roomType];
+
+      document.querySelectorAll('.room-card').forEach((card) => card.classList.remove('ring-4', 'ring-festive-gold'));
+      const activeCard = document.getElementById(`room-card-${state.roomType}`);
+      if (activeCard) activeCard.classList.add('ring-4', 'ring-festive-gold');
+    }
+
+    document.getElementById('regen-code-btn').addEventListener('click', () => {
+      state.privateRoomCode = generateUniqueRoomCode();
+      syncStep2UI();
+      showToast(`สร้างโค้ดห้องส่วนตัวใหม่: ${state.privateRoomCode}`);
+    });
+
+    document.getElementById('add-10-acc-btn').addEventListener('click', () => {
+      state.nationalAccounts += 10;
+      syncStep2UI();
+      showToast(`แอคเค้าท์เพิ่มเป็น ${state.nationalAccounts} — ต้นสนระดับประเทศโตขึ้นเป็น ${getNationalScaleMultiplier()} เท่า!`);
+    });
+
+    document.getElementById('reset-acc-btn').addEventListener('click', () => {
+      state.nationalAccounts = 10;
+      syncStep2UI();
+      showToast('รีเซ็ตจำนวนแอคเค้าท์ระดับประเทศเป็น 10 (1.0x)');
+    });
+
+    document.querySelectorAll('.select-room-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.roomType = btn.dataset.selectRoom;
+        syncStep2UI();
+        showToast('เลือกขนาดห้องเรียบร้อยแล้ว');
+      });
+    });
+
+    document.getElementById('back-to-1').addEventListener('click', () => goToStep(1));
+    document.getElementById('to-step-3').addEventListener('click', () => goToStep(3));
+
+    // =========================================================================
+    // 6. หน้า 3: สร้างไอเทม (กระดาษ & ดวงไฟ)
+    // =========================================================================
+    const editorCanvas = document.getElementById('item-editor-canvas');
+    const editorCtx = editorCanvas.getContext('2d');
+
+    // เลเยอร์สำหรับรอยวาด/ข้อความบนชิ้นงาน
+    const strokeCanvas = document.createElement('canvas');
+    strokeCanvas.width = editorCanvas.width;
+    strokeCanvas.height = editorCanvas.height;
+    const strokeCtx = strokeCanvas.getContext('2d');
+
+    let isDrawingStroke = false;
+    let lastPt = null;
+
+    function getQuotaUsed() {
+      return state.itemsByRoom[state.roomType].length;
+    }
+
+    function getQuotaMax() {
+      return roomQuotaMap[state.roomType];
+    }
+
+    function syncStep3QuotaUI() {
+      document.getElementById('quota-used').textContent = getQuotaUsed();
+      document.getElementById('quota-max').textContent = getQuotaMax();
+      document.getElementById('created-items-count').textContent = getQuotaUsed();
+    }
+
+    function traceShapePath(ctx, shape, cx, cy, r) {
+      ctx.beginPath();
+      if (shape === 'circle' || shape === 'sphere') {
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      } else if (shape === 'heart' || shape === 'heart3d') {
+        const topCurveHeight = r * 0.35;
+        ctx.moveTo(cx, cy + r * 0.75);
+        ctx.bezierCurveTo(cx - r * 1.35, cy + r * 0.05, cx - r * 0.95, cy - r * 0.95, cx, cy - topCurveHeight);
+        ctx.bezierCurveTo(cx + r * 0.95, cy - r * 0.95, cx + r * 1.35, cy + r * 0.05, cx, cy + r * 0.75);
+      } else if (shape === 'star' || shape === 'star3d') {
+        const spikes = 5;
+        const outerR = r * 1.05;
+        const innerR = r * 0.48;
+        for (let i = 0; i < spikes * 2; i++) {
+          const rad = i % 2 === 0 ? outerR : innerR;
+          const angle = (i * Math.PI) / spikes - Math.PI / 2;
+          const x = cx + Math.cos(angle) * rad;
+          const y = cy + Math.sin(angle) * rad;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+      } else if (shape === 'tree') {
+        ctx.moveTo(cx, cy - r * 1.05);
+        ctx.lineTo(cx + r * 0.85, cy + r * 0.15);
+        ctx.lineTo(cx + r * 0.42, cy + r * 0.15);
+        ctx.lineTo(cx + r * 0.95, cy + r * 0.85);
+        ctx.lineTo(cx - r * 0.95, cy + r * 0.85);
+        ctx.lineTo(cx - r * 0.42, cy + r * 0.15);
+        ctx.lineTo(cx - r * 0.85, cy + r * 0.15);
+        ctx.closePath();
+      }
+    }
+
+    function renderItemToContext(ctx, w, h, cfg) {
+      ctx.clearRect(0, 0, w, h);
+      const cx = w / 2;
+      const cy = h / 2;
+      const r = Math.min(w, h) * 0.34;
+
+      if (cfg.itemType === 'paper') {
+        ctx.save();
+        traceShapePath(ctx, cfg.paperShape || 'star', cx, cy, r);
+        ctx.fillStyle = cfg.color;
+        ctx.shadowColor = 'rgba(0,0,0,0.18)';
+        ctx.shadowBlur = 10;
+        ctx.fill();
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+        ctx.stroke();
+        ctx.clip();
+
+        if (cfg.strokesCanvas) {
+          ctx.drawImage(cfg.strokesCanvas, 0, 0, w, h);
+        }
+        ctx.restore();
+      } else {
+        // ตัวเลือกที่ 2: ดวงไฟ (ทรงกลม / หัวใจ 3D / ดาว 3D + เรืองแสงเหมือนเปิดไฟ)
+        const shape = cfg.lightShape || 'sphere';
+        ctx.save();
+        if (cfg.glow !== false) {
+          ctx.shadowColor = cfg.color;
+          ctx.shadowBlur = 28;
+        }
+        traceShapePath(ctx, shape, cx, cy, r);
+        const grad = ctx.createRadialGradient(cx - r * 0.3, cy - r * 0.35, r * 0.1, cx, cy, r * 1.15);
+        grad.addColorStop(0, '#FFFFFF');
+        grad.addColorStop(0.32, cfg.color);
+        grad.addColorStop(1, '#1E1B4B');
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.clip();
+
+        if (cfg.strokesCanvas) {
+          ctx.drawImage(cfg.strokesCanvas, 0, 0, w, h);
+        }
+
+        // ไฮไลต์ความเงา 3 มิติ
+        ctx.fillStyle = 'rgba(255,255,255,0.28)';
+        ctx.beginPath();
+        ctx.ellipse(cx - r * 0.32, cy - r * 0.38, r * 0.24, r * 0.12, -0.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    function renderEditorCanvas() {
+      renderItemToContext(editorCtx, editorCanvas.width, editorCanvas.height, {
+        itemType: state.itemType,
+        color: state.itemColor,
+        paperShape: state.paperShape,
+        lightShape: state.lightShape,
+        glow: state.lightGlow,
+        strokesCanvas: strokeCanvas
+      });
+    }
+
+    function canvasPos(e, canvas) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: ((clientX - rect.left) / rect.width) * canvas.width,
+        y: ((clientY - rect.top) / rect.height) * canvas.height
+      };
+    }
+
+    editorCanvas.addEventListener('pointerdown', (e) => {
+      isDrawingStroke = true;
+      lastPt = canvasPos(e, editorCanvas);
+    });
+
+    editorCanvas.addEventListener('pointermove', (e) => {
+      if (!isDrawingStroke || !lastPt) return;
+      const pt = canvasPos(e, editorCanvas);
+      strokeCtx.save();
+      strokeCtx.strokeStyle = state.itemType === 'light' ? '#FFFBEB' : '#1E293B';
+      strokeCtx.lineWidth = state.brushSize;
+      strokeCtx.lineCap = 'round';
+      strokeCtx.lineJoin = 'round';
+      strokeCtx.beginPath();
+      strokeCtx.moveTo(lastPt.x, lastPt.y);
+      strokeCtx.lineTo(pt.x, pt.y);
+      strokeCtx.stroke();
+      strokeCtx.restore();
+      lastPt = pt;
+      renderEditorCanvas();
+    });
+
+    window.addEventListener('pointerup', () => {
+      isDrawingStroke = false;
+      lastPt = null;
+    });
+
+    // พิมพ์ข้อความลงบนชิ้นงาน
+    document.getElementById('apply-text-btn').addEventListener('click', () => {
+      const txt = document.getElementById('item-text-input').value.trim();
+      if (!txt) {
+        showToast('กรุณาพิมพ์ข้อความก่อน');
+        return;
+      }
+      strokeCtx.save();
+      strokeCtx.font = 'bold 18px Kanit, Prompt, sans-serif';
+      strokeCtx.textAlign = 'center';
+      strokeCtx.textBaseline = 'middle';
+      strokeCtx.fillStyle = state.itemType === 'light' ? '#FFFFFF' : '#0F172A';
+      strokeCtx.strokeStyle = state.itemType === 'light' ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.85)';
+      strokeCtx.lineWidth = 3;
+      const midY = editorCanvas.height / 2;
+      strokeCtx.strokeText(txt, editorCanvas.width / 2, midY);
+      strokeCtx.fillText(txt, editorCanvas.width / 2, midY);
+      strokeCtx.restore();
+      renderEditorCanvas();
+      showToast('พิมพ์ข้อความลงบนชิ้นงานแล้ว');
+    });
+
+    document.getElementById('clear-draw-btn').addEventListener('click', () => {
+      strokeCtx.clearRect(0, 0, strokeCanvas.width, strokeCanvas.height);
+      renderEditorCanvas();
+      showToast('ล้างรอยวาดและข้อความแล้ว');
+    });
+
+    document.getElementById('brush-size').addEventListener('input', (e) => {
+      state.brushSize = Number(e.target.value);
+    });
+
+    // สลับแท็บกระดาษ / ดวงไฟ
+    const tabPaper = document.getElementById('tab-paper');
+    const tabLight = document.getElementById('tab-light');
+    tabPaper.addEventListener('click', () => {
+      state.itemType = 'paper';
+      tabPaper.className = 'item-type-tab p-4 rounded-2xl border-2 border-festive-red bg-festive-red/5 text-left transition flex items-center gap-3';
+      tabLight.className = 'item-type-tab p-4 rounded-2xl border-2 border-slate-200 bg-white text-left transition flex items-center gap-3';
+      document.getElementById('paper-controls').classList.remove('hidden');
+      document.getElementById('light-controls').classList.add('hidden');
+      renderEditorCanvas();
+    });
+
+    tabLight.addEventListener('click', () => {
+      state.itemType = 'light';
+      tabLight.className = 'item-type-tab p-4 rounded-2xl border-2 border-festive-green bg-festive-green/5 text-left transition flex items-center gap-3';
+      tabPaper.className = 'item-type-tab p-4 rounded-2xl border-2 border-slate-200 bg-white text-left transition flex items-center gap-3';
+      document.getElementById('light-controls').classList.remove('hidden');
+      document.getElementById('paper-controls').classList.add('hidden');
+      renderEditorCanvas();
+    });
+
+    // จานสี
+    const colorPicker = document.getElementById('item-color-picker');
+    colorPicker.addEventListener('input', (e) => {
+      state.itemColor = e.target.value;
+      renderEditorCanvas();
+    });
+    document.querySelectorAll('.swatch-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.itemColor = btn.dataset.swatch;
+        colorPicker.value = btn.dataset.swatch.length === 7 ? btn.dataset.swatch : '#FFFFFF';
+        renderEditorCanvas();
+      });
+    });
+
+    // รูปร่างตัดกระดาษ
+    document.querySelectorAll('.cut-shape-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.paperShape = btn.dataset.cutShape;
+        document.querySelectorAll('.cut-shape-btn').forEach((b) => {
+          b.className = 'cut-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700';
+        });
+        btn.className = 'cut-shape-btn px-3 py-2 rounded-xl border-2 border-festive-red bg-festive-red/10 text-xs font-bold text-festive-red';
+        renderEditorCanvas();
+      });
+    });
+
+    // รูปทรงดวงไฟ 3D
+    document.querySelectorAll('.light-shape-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.lightShape = btn.dataset.lightShape;
+        document.querySelectorAll('.light-shape-btn').forEach((b) => {
+          b.className = 'light-shape-btn px-3 py-2 rounded-xl border-2 border-slate-200 text-xs font-bold text-slate-700';
+        });
+        btn.className = 'light-shape-btn px-3 py-2 rounded-xl border-2 border-festive-green bg-festive-green/10 text-xs font-bold text-festive-green';
+        renderEditorCanvas();
+      });
+    });
+
+    document.getElementById('light-glow-toggle').addEventListener('change', (e) => {
+      state.lightGlow = e.target.checked;
+      renderEditorCanvas();
+    });
+
+    // บันทึกไอเทมลงโควตาห้อง
+    document.getElementById('save-item-btn').addEventListener('click', () => {
+      const used = getQuotaUsed();
+      const max = getQuotaMax();
+      if (used >= max) {
+        showToast(`ห้องนี้สร้างได้สูงสุด ${max} ชิ้น/แอคเค้าท์แล้ว!`);
+        return;
+      }
+
+      const snapshotCanvas = document.createElement('canvas');
+      snapshotCanvas.width = 160;
+      snapshotCanvas.height = 160;
+      const sCtx = snapshotCanvas.getContext('2d');
+
+      const tempFull = document.createElement('canvas');
+      tempFull.width = editorCanvas.width;
+      tempFull.height = editorCanvas.height;
+      renderItemToContext(tempFull.getContext('2d'), tempFull.width, tempFull.height, {
+        itemType: state.itemType,
+        color: state.itemColor,
+        paperShape: state.paperShape,
+        lightShape: state.lightShape,
+        glow: state.lightGlow,
+        strokesCanvas: strokeCanvas
+      });
+      sCtx.drawImage(tempFull, 0, 0, 160, 160);
+
+      const newItem = {
+        id: `item_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`,
+        type: state.itemType,
+        dataUrl: snapshotCanvas.toDataURL('image/png'),
+        glow: state.itemType === 'light' && state.lightGlow,
+        color: state.itemColor
+      };
+
+      state.itemsByRoom[state.roomType].push(newItem);
+      state.selectedItemId = newItem.id;
+
+      // ล้างกระดานวาดเตรียมชิ้นถัดไป
+      strokeCtx.clearRect(0, 0, strokeCanvas.width, strokeCanvas.height);
+      document.getElementById('item-text-input').value = '';
+      renderEditorCanvas();
+      syncStep3QuotaUI();
+      renderCreatedItemsList();
+      showToast(`บันทึกไอเทมแล้ว (${used + 1}/${max} ชิ้น)`);
+    });
+
+    function renderCreatedItemsList() {
+      const listEl = document.getElementById('created-items-list');
+      const items = state.itemsByRoom[state.roomType];
+      if (!items.length) {
+        listEl.innerHTML = '<p class="col-span-full text-sm text-slate-400 py-4 text-center">ยังไม่มีไอเทมที่สร้างในห้องนี้ ลองสร้างชิ้นแรกด้านบนได้เลย!</p>';
+        return;
+      }
+      listEl.innerHTML = items.map((it, idx) => `
+        <div class="rounded-2xl border border-slate-200 bg-white p-2 flex flex-col items-center text-center shadow-sm">
+          <img src="${it.dataUrl}" alt="ไอเทมชิ้นที่ ${idx + 1}" class="w-16 h-16 object-contain" />
+          <span class="text-[11px] font-bold text-slate-700 mt-1">${it.type === 'paper' ? 'กระดาษ' : 'ดวงไฟ'} #${idx + 1}</span>
+        </div>
+      `).join('');
+    }
+
+    document.getElementById('back-to-2').addEventListener('click', () => goToStep(2));
+    document.getElementById('to-step-4').addEventListener('click', () => goToStep(4));
+
+    // =========================================================================
+    // 7. หน้า 4 & หน้า 5: วาดต้นสน 360° พร้อมดาวทอง เส้นไฟ และกล่องของขวัญ 3 กล่อง
+    // =========================================================================
+    const loadedImgCache = {};
+    function getCachedImage(dataUrl, onReady) {
+      if (loadedImgCache[dataUrl]) {
+        const img = loadedImgCache[dataUrl];
+        if (img.complete) return img;
+      }
+      const img = new Image();
+      img.onload = () => {
+        loadedImgCache[dataUrl] = img;
+        if (onReady) onReady();
+      };
+      img.src = dataUrl;
+      loadedImgCache[dataUrl] = img;
+      return null;
+    }
+
+    function drawGoldenStar(ctx, cx, cy, spikes, outerR, innerR) {
+      ctx.save();
+      ctx.beginPath();
+      for (let i = 0; i < spikes * 2; i++) {
+        const r = i % 2 === 0 ? outerR : innerR;
+        const a = (i * Math.PI) / spikes - Math.PI / 2;
+        const x = cx + Math.cos(a) * r;
+        const y = cy + Math.sin(a) * r;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = '#FBBF24';
+      ctx.shadowColor = '#F59E0B';
+      ctx.shadowBlur = 22;
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = '#FEF08A';
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawTreeScene(canvasId, opts) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+      const zoom = opts.zoom || 1;
+      const yawDeg = opts.yawDeg || 0;
+      const scaleMult = Math.min(1.45, 0.85 + (opts.scaleMult || 1) * 0.14);
+
+      ctx.clearRect(0, 0, w, h);
+      ctx.save();
+
+      // พื้นหลังท้องฟ้ายามค่ำคืนและพื้นหิมะ
+      const skyGrad = ctx.createLinearGradient(0, 0, 0, h);
+      skyGrad.addColorStop(0, '#071A2F');
+      skyGrad.addColorStop(0.68, '#0D3326');
+      skyGrad.addColorStop(0.7, '#E2E8F0');
+      skyGrad.addColorStop(1, '#F8FAFC');
+      ctx.fillStyle = skyGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // ซูมรอบจุดกึ่งกลาง
+      ctx.translate(w / 2, h * 0.52);
+      ctx.scale(zoom, zoom);
+      ctx.translate(-w / 2, -h * 0.52);
+
+      const cx = w / 2;
+      const groundY = h * 0.78;
+      const treeTopY = groundY - 265 * scaleMult;
+      const treeBaseHalfW = 148 * scaleMult;
+
+      // ลำต้นสน
+      ctx.fillStyle = '#5C3A21';
+      ctx.fillRect(cx - 22 * scaleMult, groundY - 42 * scaleMult, 44 * scaleMult, 46 * scaleMult);
+
+      // ชั้นใบต้นสน 3 ชั้น
+      const tiers = [
+        { top: treeTopY + 85 * scaleMult, bot: groundY - 32 * scaleMult, halfW: treeBaseHalfW },
+        { top: treeTopY + 42 * scaleMult, bot: groundY - 105 * scaleMult, halfW: treeBaseHalfW * 0.78 },
+        { top: treeTopY, bot: groundY - 172 * scaleMult, halfW: treeBaseHalfW * 0.55 }
+      ];
+
+      tiers.forEach((t, idx) => {
+        const grad = ctx.createLinearGradient(cx, t.top, cx, t.bot);
+        grad.addColorStop(0, idx === 2 ? '#22C55E' : '#16A34A');
+        grad.addColorStop(1, '#14532D');
+        ctx.beginPath();
+        ctx.moveTo(cx, t.top);
+        ctx.lineTo(cx + t.halfW, t.bot);
+        ctx.lineTo(cx - t.halfW, t.bot);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+
+      // เส้นไฟประดับพันรอบต้นสน
+      const bulbColors = ['#FDE047', '#FB7185', '#38BDF8', '#4ADE80', '#FBBF24'];
+      const wireTurns = 6;
+      for (let i = 0; i <= 48; i++) {
+        const frac = i / 48; // 0 = บน, 1 = ล่าง
+        const y = treeTopY + 26 * scaleMult + frac * (215 * scaleMult);
+        const halfSpread = (16 + frac * (treeBaseHalfW - 22)) * scaleMult;
+        const phase = frac * Math.PI * 2 * wireTurns + (yawDeg * Math.PI) / 180;
+        const x = cx + Math.sin(phase) * halfSpread;
+
+        ctx.save();
+        const col = bulbColors[i % bulbColors.length];
+        ctx.fillStyle = col;
+        ctx.shadowColor = col;
+        ctx.shadowBlur = 12;
+        ctx.beginPath();
+        ctx.arc(x, y, 4.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // ดาวประดับหัวสีทองบนยอดต้นสน
+      drawGoldenStar(ctx, cx, treeTopY - 8 * scaleMult, 5, 22 * scaleMult, 10 * scaleMult);
+
+      // ของขวัญวางบนพื้น 3 กล่อง
+      const gifts = [
+        { dx: -95, dy: 4, w: 38, h: 32, box: '#DC2626', ribbon: '#FBBF24' },
+        { dx: -46, dy: 14, w: 30, h: 24, box: '#16A34A', ribbon: '#FFFFFF' },
+        { dx: 76, dy: 8, w: 42, h: 34, box: '#E11D48', ribbon: '#38BDF8' }
+      ];
+      gifts.forEach((g) => {
+        const gx = cx + g.dx * scaleMult;
+        const gy = groundY + g.dy * scaleMult;
+        ctx.save();
+        ctx.fillStyle = g.box;
+        ctx.fillRect(gx - g.w / 2, gy - g.h, g.w, g.h);
+        ctx.fillStyle = g.ribbon;
+        ctx.fillRect(gx - 3, gy - g.h, 6, g.h);
+        ctx.fillRect(gx - g.w / 2, gy - g.h / 2 - 2, g.w, 4);
+        ctx.restore();
+      });
+
+      // แปลงองศา 360° + ความสูง เป็นพิกัดบนต้นสน
+      function angleHeightToXY(angleDeg, heightPct) {
+        const normH = Math.max(0.12, Math.min(0.92, heightPct / 100));
+        const y = treeTopY + normH * (225 * scaleMult);
+        const maxHalfWAtY = (18 + normH * (treeBaseHalfW - 24)) * scaleMult;
+        const rad = ((angleDeg + yawDeg) * Math.PI) / 180;
+        const x = cx + Math.sin(rad) * maxHalfWAtY;
+        const depth = Math.cos(rad); // -1 หลังต้น, +1 หน้าต้น
+        return { x, y, depth };
+      }
+
+      // วาดไอเทมที่ผู้ใช้ติดไว้ 360°
+      (opts.placedItems || []).forEach((p) => {
+        const pos = angleHeightToXY(p.angle, p.heightPct);
+        const size = (44 + pos.depth * 10) * Math.min(1.2, scaleMult);
+        const img = getCachedImage(p.dataUrl, () => {
+          drawTreeScene(canvasId, opts);
+        });
+        ctx.save();
+        ctx.globalAlpha = pos.depth < -0.35 ? 0.65 : 1;
+        if (p.glow) {
+          ctx.shadowColor =
